@@ -32,5 +32,5 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 Copyright
 ----------
 
-a.yasui <a.yasui@gmail.com>
+a.yasui <a.yasui+dot@gmail.com>
 
