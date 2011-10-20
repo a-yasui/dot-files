@@ -1,0 +1,71 @@
+# Copyright: a.yasui <a.yasui+dot@gmail.com>
+
+if ( -f $HOME/.cshrc ) then
+	source $HOME/.cshrc
+endif
+
+alias ll ls -al
+alias ls ls-F -aG
+
+# Command replace
+set currect = cmd
+set autoexpand
+
+
+if ( -e /sw ) then
+    source /sw/bin/init.csh
+endif
+
+# Show to new mail
+if ( -e "$HOME/shells/showmail.sh" ) then
+    alias nmail ~/shells/showmail.sh
+endif
+
+if ( -e /usr/local/bin/vim ) then
+    alias vi /usr/local/bin/vim
+endif
+
+if ( -e /sw/bin/vim ) then
+    alias vi /sw/bin/vim 
+endif
+
+if ( -e /Library/Java/Home ) then
+    setenv JAVA_HOME /Library/Java/Home
+endif
+
+setenv tag branch_`date +'%Y_%m_%d'`
+setenv CVS_RSH   ssh
+
+set pathes="/usr/local/bin /usr/local/sbin /opt/local/bin /sw/bin ${HOME}/bin ${HOME}/perls ${HOME}/shells ${HOME}/python ${HOME}/Develop/depot_tools/ /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/"
+foreach v ($pathes)
+    if ( -e $v ) then
+        setenv PATH $PATH":"$v
+    endif
+end
+
+set _app="/Applications"
+if ( -d $_app) then
+    set apps=`ls -d ${_app}/* | grep app | sed -e s/\\/Applications\\/// -e s/\\///g -e s/\ /_/g -e s/\.app//g `
+    foreach app ($apps)
+        if ( -d "${_app}/${app}.app" ) then
+            alias "${app}" open -a "${app}"
+        else
+            set name=`echo $app|sed -e s/_/\ /g`
+            if ( -d "${app}/${name}.app" ) then
+                alias "${name}" open -a "${name}"
+            endif
+        endif
+    end
+endif
+
+if ( $?tcsh ) then
+	bindkey "^W" backward-delete-word
+	bindkey -k up history-search-backward
+	bindkey -k down history-search-forward
+endif
+
+set prompt='[%{\e[36m%n\e[00m%}@%{\e[31m%m\e[00m%}: %{\e[32m%~\e[00m%}][%{\e[34m%T\e[00m%}] $ '
+
+# import pyions
+#source ${HOME}/pyions/bin/activate
+
