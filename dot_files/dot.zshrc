@@ -1,4 +1,3 @@
-# Copyright: a.yasui <a.yasui+dot@gmail.com>
 
 # alias
 setopt complete_aliases
@@ -12,12 +11,17 @@ bindkey -e
 bindkey '^W' backward-kill-word
  
 # historical backward/forward search with linehead string binded to ^P/^N
-#
+# #
+autoload -U compinit
+compinit
+
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
 # Zsh history
 HISTFILE=~/.zsh_history
@@ -33,7 +37,5 @@ colors
 # sudo でも補完の対象
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
-
-# prompt.
-# show this: [<username>@<host>: ~][00:11] $ 
+# プロンプトに色つけ
 PROMPT="[%{${fg[cyan]}%}%n%{${reset_color}%}@%{${fg[red]}%}%m%{${reset_color}%}: %{${fg[green]}%}%~%{${reset_color}%}][%{${fg[blue]}%}%T%{${reset_color}%}] $ "
